@@ -1,2 +1,4 @@
 # ANSI C 
-Some Random ANSI C programs 
+Some Random C programs. 
+
+These should conform to the C99 spec.
