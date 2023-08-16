@@ -1,8 +1,7 @@
-# Utils
 
-Some BASH script utilities I've written over the years.
+Here are some BASH script utilities I've written over the years.
 
-There is a verity different scripts in the bash folder.  
+Some of them will require extra software be installed to work.
 
 ## Some things here 
 
