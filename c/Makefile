@@ -52,10 +52,13 @@ pi:
 rfft:
 	gcc -O3 -I$(INC_DIR) -L$(LIB_DIR) -lm -lgsl -lgslcblas -o rfft rfft.c 
 
+sizeof:
+	gcc -O3 -o sizeof sizeof.c	
+
 spinner:
 	gcc -O3 -o spinner spinner.c
 
-all: 	avg bits coin combo decomp dice dp egypt factorial fibonacci monty pi rfft spinner
+all: 	avg bits coin combo decomp dice dp egypt factorial fibonacci monty pi rfft sizeof spinner
 
 clean: 
 	rm -f *.o core avg bits coin combo decomp dice dp egypt factorial fibonacci monty pi rfft spinner

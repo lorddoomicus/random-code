@@ -7,6 +7,9 @@ Some of them will require extra software be installed to work.
 
 You'll find these and more in this folder.
 
+### Sync Crap
+This is a script that can be used to copy random stuff to a set of rotating back up volumes. I use it to back up archives, s3 backups, removable volumes from devices like my digital recorder and data on Linux computers. 
+
 ### Arduino scripts
 These can be run on the command line, but are meant to be built into droppable apps using Platypus.
 These will also require the arduino-cli tools be installed.
@@ -31,6 +34,7 @@ archive-google.sh - archives the google takeout file to a given s3 bucket.
 ### Some Video Scripts
 These scripts will handle properly copying, time-stamping and converting to mp4's for import into shotwell or similar program, the files created by
 security camera and dashcams.
+
 These will require to have several media tools installed such as ffmpeg and exiftool installed
 
 It's a fairly complex solution with many parts:
