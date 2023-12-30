@@ -3,7 +3,7 @@
 # This is meant to be run via a Platypus created application
 # Build a macOS droppable with: 
 #
-#       platypus -D -a "Sync Crap" -o 'Text Window' -u "Derrik Walker" -V 2.0 sync-crap.sh
+#       platypus -D -a "Sync Crap" -o 'Text Window' -u "Derrik Walker" -V 2.0.1 sync-crap.sh
 #
 # (c) 2021 Derrik Walker v2.0
 # This is licensed for use under the GNU General Public License v2
@@ -25,6 +25,10 @@
 #	keep: Make a bzip'd tar file of the downloaded data and keep it in source/backup
 #
 
+#
+# Set this to where ever you aws command is installed if you need to sync S3 content
+aws=$HOME/.pyenv/shims/aws
+
 if [ -e "sync-crap.conf" ]
 then
 	conf="sync-crap.conf"
@@ -40,7 +44,6 @@ fi
 grep -v ^# $conf | sed '/^$/d' | while read line
 do
 
-	echo "================================================"
 	# echo $line
 
 	src=$( echo $line  | cut -d, -f1 )
@@ -82,7 +85,7 @@ do
 
 		if echo $src | grep ^s3 > /dev/null 
 		then
-			aws s3 sync "$src" .
+			$aws s3 sync "$src" . 
 		else
 			if [ "$excl" ]
 			then
@@ -109,8 +112,9 @@ do
 				tar -cvjf "$keepf" --exclude backup . 
 			fi
 		fi	
+
+		echo "-----------------------------------------------------"
 	done
 
-	echo "================================================"
 	echo
 done
