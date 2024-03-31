@@ -2,14 +2,18 @@
  * Simulates a dice roll, with arbitrary sides, number of dice, or rolls
  *
  * compile with:
+ *	Mac/Linux:
  *		gcc -O3 -o dice dice.c
+ *	Amiga:
+ *		vc  +aos68k -o dice -I$HOME/Code/Amiga/amiga-cc/extra/include dice.c  -lamiga -lauto -L$HOME/Code/Amiga/amiga-cc/extra/ -lposix
  *
  * (c) 2012 Derrik Walker v2.0
  * This is licensed for use under the GNU General Public License v2
  *
- * 2012/12/11	dwalker		Initial Version
- * 2014/01/28	dwalker		Added proper support for cmd args
- * 2015/05/27	dwalker		Added error checking and fixed help
+ * 2012-12-11	dwalker		Initial Version
+ * 2014-01-28	dwalker		Added proper support for cmd args
+ * 2015-05-27	dwalker		Added error checking and fixed help
+ * 2024-03-31	dwalker		Updated to run on an Amiga
  */
 
 #include <stdio.h>

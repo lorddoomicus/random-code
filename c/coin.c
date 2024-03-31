@@ -2,7 +2,11 @@
  * Simulates a coin toss, with arbitrary flips, or number of coins
  * 
  * compile with:
+ *	Mac/Linux:
  *		gcc -O3 -o coin coin.c
+ *
+ *	Amiga:
+ *		vc  +aos68k -o coin -I$HOME/Code/Amiga/amiga-cc/extra/include coin.c  -lamiga -lauto -L$HOME/Code/Amiga/amiga-cc/extra/ -lposix
  *
  * (c) 2015 Derrik Walker v2.0
  * This is licensed for use under the GNU General Public License v2
@@ -10,6 +14,7 @@
  * 2015-01-22	dwalker		Initial Version
  * 2015-05-28	dwalker		Added error checking and super help
  * 2022-04-09	dwalker		Added include for string.h and c99 compliance
+ # 2024-03-31	dwalker		Updated to run on an Amiga
  */
 
 #include <stdio.h>

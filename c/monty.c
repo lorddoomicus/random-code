@@ -15,11 +15,18 @@
  * printed at the end.
  *
  * This is ported from a BASIC program written many eons ago for the C=64 Computer.
+ * 
+ * Compile with:
+ *	Mac/Linux:
+ *		gcc -o monty monty.c
+ *	Amiga:
+ *		vc -c99 +aos68k -o monty monty.c  -lamiga -lauto 
  *
  * (c) 2014 Derrik Walker v2.0
  * This is licensed for use under the GNU General Public License v2
  * 
- * 4/24/2014 	dwalker		Initial version
+ * 2014-04-24 	dwalker		Initial version
+ * 2024-03-31	dwalker		Updated to run on an Amiga
  */
 
 #include <stdio.h>
