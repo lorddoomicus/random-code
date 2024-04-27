@@ -3,7 +3,7 @@
 # This is meant to be run via a Platypus created application
 # Build a macOS droppable with: 
 #
-#       platypus -D -a "Sync Crap" -o 'Text Window' -u "Derrik Walker" -V 2.0.1 sync-crap.sh
+#       platypus -D -a "Sync Crap" -o 'Text Window' -u "Derrik Walker" -V 2.1 sync-crap.sh
 #
 # (c) 2021 Derrik Walker v2.0
 # This is licensed for use under the GNU General Public License v2
@@ -12,6 +12,7 @@
 # 2021-01-02	dwalker		Initial Version
 # 2023-12-29	dwalker		New version 2 - a complete rewrite that gets input from config file
 #				Instead of internal scripts
+# 2024-04-27	dwalker		Added to always exclude .Trash and .DS_Store on all copies
 #
 
 # Conf file
@@ -53,7 +54,7 @@ do
 
 	echo "source: $src"
 	echo "dest: /Volume/Backups/ {1,2}/$dst"  
-	echo "exclude: $excl tmp and Downloads"
+	echo "exclude: $excl .Trash .DS_Store tmp and Downloads"
 	echo "keep: $keep" 
 
 	for backup in /Volumes/Backups\ *
@@ -89,9 +90,9 @@ do
 		else
 			if [ "$excl" ]
 			then
-		 		rsync -av "${src}"/ --timeout=60 --exclude tmp --exclude Downloads --exclude "$excl" .
+		 		rsync -av "${src}"/ --timeout=60 --exclude .Trash --exclude .DS_Store --exclude tmp --exclude Downloads --exclude "$excl" .
 			else
-		 		rsync -av "${src}"/ --timeout=60 --exclude tmp --exclude Downloads .
+		 		rsync -av "${src}"/ --timeout=60 --exclude .Trash --exclude .DS_Store --exclude tmp --exclude Downloads .
 			fi
 		fi
 		echo "-----------------------------------------------------"
