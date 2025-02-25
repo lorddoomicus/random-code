@@ -9,8 +9,10 @@
  * (c) 2012 Derrik Walker v2.0
  * This is licensed for use under the GNU General Public License v2
  *
- * 2012/11/12	dwalker		Initial version
- * 2015/01/27	dwalker		Added command line options
+ * 2012-11-12	dwalker		Initial version
+ * 2015-01-27	dwalker		Added command line options
+ * 2025-02-24	dwalker		Fixed a bug that made it ignore 0 as a min
+ *				Print the Sum as well.
  */
 
 #include <stdio.h>
@@ -31,14 +33,14 @@ int main( int argc, char *argv[] ) {
 
 	float	data;
 
-	float	max = 0, min = 0;
+	float	max = 0, min = -1;
 	double	avg, sum = 0;
 	double	v, std_dev;
 
 	long	count = 0;
 	float	*nos = NULL;
 
-	int	max_flag = OFF, min_flag = OFF;
+	int	max_flag = OFF, min_flag = OFF, sum_flag = OFF;
 	int	avg_flag = OFF, std_dev_flag = OFF; 
 	int	all_flag = ON;
 
@@ -54,7 +56,7 @@ int main( int argc, char *argv[] ) {
 
 	opterr = 0; /* don't print option error messages */
 
-	while (( opts = getopt( argc, argv, "Hhamis" )) != -1 )
+	while (( opts = getopt( argc, argv, "HhamiSs" )) != -1 )
 	
 		switch( opts ) {
 
@@ -75,6 +77,11 @@ int main( int argc, char *argv[] ) {
 
 			case 's':
 				std_dev_flag = ON;
+				all_flag = OFF;
+				break;
+
+			case 'S':
+				sum_flag = ON;
 				all_flag = OFF;
 				break;
 
@@ -113,7 +120,7 @@ int main( int argc, char *argv[] ) {
 		}
 		nos[ count - 1 ] = data;
 
-		if( min == 0 || data <= min ) { min = data; }
+		if( min < 0 || data <= min ) { min = data; }
 
 		if( data > max ) { max = data; }
 	}
@@ -141,9 +148,13 @@ int main( int argc, char *argv[] ) {
 	if( std_dev_flag == ON )
 		printf( "%f\n", std_dev );
 
+	if( sum_flag == ON )
+		printf( "%f\n", sum );
+
 	if( all_flag == ON ) {
 
-		printf( "\n    Min: %f\n", min );
+		printf( "\n    Sum: %f\n", sum );
+		printf( "    Min: %f\n", min );
 		printf( "    Max: %f\n", max );
 		printf( "    Avg: %f\n", avg );
 		printf( "Std Dev: %f\n\n", std_dev );
@@ -153,7 +164,7 @@ int main( int argc, char *argv[] ) {
 void usage( int type ) {
 
 	printf ( "Usage: %s", NAME ); 
-	printf ( " [-h|H][-a][-m][-i][-s]\n" );
+	printf ( " [-h|H][-a][-m][-i][-S][-s]\n" );
 
 	if( type == SPR ) {	/* extended help */
 		printf ( "\nWhere:\n" );
@@ -163,6 +174,7 @@ void usage( int type ) {
 		printf ( "\t-m: print just the max\n" );
 		printf ( "\t-i: print just the min\n" );
 		printf ( "\t-s: print just the std variation\n" );
+		printf ( "\t-S: print just the sum\n" );
 
 		printf ( "\nNotes:\n" ); 
 		printf ( "\t- one number per line on STDIN\n" );
