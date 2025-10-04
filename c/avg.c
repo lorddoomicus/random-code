@@ -13,8 +13,8 @@
  * 2015-01-27	dwalker		Added command line options
  * 2025-02-24	dwalker		Fixed a bug that made it ignore 0 as a min
  *				Print the Sum as well.
+ * 2025-10-04	dwalker		Re-wrote it to be more C99 complient to compile on Solars
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -35,7 +35,7 @@ int main( int argc, char *argv[] ) {
 
 	float	max = 0, min = -1;
 	double	avg, sum = 0;
-	double	v, std_dev;
+	double	v = 0, std_dev;
 
 	long	count = 0;
 	float	*nos = NULL;
@@ -45,9 +45,7 @@ int main( int argc, char *argv[] ) {
 	int	all_flag = ON;
 
 	int	i, opts;
-	char	*stop, *line = NULL;
-	size_t	len = 0U;
-	ssize_t	n;
+	char	*stop, line[150];
 
 
 	/*
@@ -105,7 +103,7 @@ int main( int argc, char *argv[] ) {
 	 * Main program Processing
 	 */
 
-	while (( n = getline( &line, &len, stdin )) >= 0 ) {
+	while ( fgets( line, sizeof(line), stdin )) {
 
 		data = strtof( line, &stop );
 	
@@ -130,6 +128,7 @@ int main( int argc, char *argv[] ) {
 	for( i = 0; i < count; i++ ) 
 		v += pow( nos[i] - avg, 2 );
 
+	printf( " -- v = %f and count = %d\n", v, count );
 	std_dev=sqrt( v / count );		
 
 	/*

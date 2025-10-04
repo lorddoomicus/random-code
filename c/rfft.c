@@ -7,6 +7,7 @@
  * This is licensed for use under the GNU General Public License v2
  *
  * 2016-09-19	dwalker		Initial Version
+ * 2025-10-04	dwalker		Updated to improve c99 compliance and build under Solaris 10
  */
 
 #include <stdio.h>
@@ -26,9 +27,7 @@ int main ( int argc, char *argv[] ) {
 	gsl_fft_real_workspace * work;
 
 	int i, opts, rate=1;
-	char *stop, *line = NULL;
-	size_t len = 0U;
-	ssize_t bla;
+	char *stop, line[128];
 	
 	opterr = 0; /* don't print option error messages */
 
@@ -56,7 +55,7 @@ int main ( int argc, char *argv[] ) {
                 }
 
 
-	while (( bla = getline( &line, &len, stdin )) >= 0 ) {
+	while ( fgets( line, sizeof( line ), stdin )) {
 
 		in = strtod( line, &stop );
 		n ++;

@@ -8,63 +8,74 @@
 # 2022-09-05	dwalker		Added a bunch of programs
 # 2024-02-17	dwalker		Added a cc var and changed to use clang	
 #				Added russian
-#
+# 2026-10-04	dwalker		Updated to build in Solaris 10
 
-# Brew library and include locations for compiling on Macs
-# Comment out for Linux systems
-LIB_DIR=`brew --prefix`/lib
-INC_DIR=`brew --prefix`/include
 
-# C compiler
-CC=clang
+# This is for gcc or clang
+
+# MacOS 
+# LIB_DIR=`brew --prefix`/lib
+# INC_DIR=`brew --prefix`/include
+# C_OPTS=-03
+# cc=clang
+
+# Linux
+# C_OPTS=-03 -m64
+# CC=gcc
+
+# Solaris
+LIB_DIR=/opt/csw/lib/64
+INC_DIR=/opt/csw/include
+C_OPTS=-xarch=v9
+CC=cc
  
 avg:
-	$(CC) -O3 -lm -o avg avg.c
+	$(CC) $(C_OPTS) -lm -o avg avg.c
 
 bits:
-	$(CC) -O3 -o bits bits.c
+	$(CC) $(C_OPTS) -o bits bits.c
 
 coin:
-	$(CC) -O3 -o coin coin.c 
+	$(CC) $(C_OPTS) -o coin coin.c 
 
 combo:
-	$(CC) -O3 -I$(INC_DIR) -L$(LIB_DIR) -lgmp -o combo combo.c
+	$(CC) $(C_OPTS) -I$(INC_DIR) -L$(LIB_DIR) -R$(LIB_DIR) -lgmp -o combo combo.c
 
 decomp:
-	$(CC) -O3 -o decomp decomp.c
+	$(CC) $(C_OPTS) -o decomp decomp.c
 
 dice:
-	$(CC) -O3 -o dice dice.c
+	$(CC) $(C_OPTS) -o dice dice.c
 
 dp:
-	$(CC) -O3 -o dp dp.c
+	$(CC) $(C_OPTS) -o dp dp.c
 
 egypt:
-	$(CC) -O3 -I$(INC_DIR) -L$(LIB_DIR) -lgmp -o egypt egypt.c
+	$(CC) $(C_OPTS) -I$(INC_DIR) -L$(LIB_DIR) -R$(LIB_DIR) -lgmp -o egypt egypt.c
 
 factorial:
-	$(CC) -O3 -I$(INC_DIR) -L$(LIB_DIR) -lgmp -o factorial factorial.c
+	$(CC) $(C_OPTS) -I$(INC_DIR) -L$(LIB_DIR) -R$(LIB_DIR) -lgmp -o factorial factorial.c
 
 fibonacci:
-	$(CC) -O3 -I$(INC_DIR) -L$(LIB_DIR) -lgmp -o fibonacci fibonacci.c
+	$(CC) $(C_OPTS) -I$(INC_DIR) -L$(LIB_DIR) -R$(LIB_DIR) -lgmp -o fibonacci fibonacci.c
 
 monty:
-	$(CC) -O3 -o monty monty.c
+	$(CC) $(C_OPTS) -o monty monty.c
 
 pi:
-	$(CC) -O3 -o pi pi.c
+	$(CC) $(C_OPTS) -o pi pi.c
 
 rfft:
-	$(CC) -O3 -I$(INC_DIR) -L$(LIB_DIR) -lm -lgsl -lgslcblas -o rfft rfft.c 
+	$(CC) $(C_OPTS) -I$(INC_DIR) -L$(LIB_DIR) -R$(LIB_DIR) -lm -lgsl -lgslcblas -o rfft rfft.c 
 
 russian:
-	$(CC) -O3 russian.c -o russian
+	$(CC) $(C_OPTS) -o russian russian.c
 
 sizeof:
-	$(CC) -O3 -o sizeof sizeof.c	
+	$(CC) $(C_OPTS) -o sizeof sizeof.c	
 
 spinner:
-	$(CC) -O3 -o spinner spinner.c
+	$(CC) $(C_OPTS) -o spinner spinner.c
 
 all: 	avg bits coin combo decomp dice dp egypt factorial fibonacci monty pi rfft russian sizeof spinner
 
